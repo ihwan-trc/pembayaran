@@ -1,0 +1,1 @@
+<embed type="application/pdf" src="asset/petunjuk/petunjuk.pdf" width="1100" height="475"></embed>
