@@ -543,7 +543,7 @@ if ($idsiswa4 !== NULL) {
         </div>
         <div class="form-row">
           <div class="form-group col-12">
-            <label for="password">Password :</label>
+            <label for="password">Password:</label>
             <input type="password" class="form-control" name="password" id="password" required="">
           </div>
         </div>

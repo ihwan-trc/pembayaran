@@ -1,22 +1,10 @@
 <?php 
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING)); 
-// -----------------------------------------jumlah siswa kelas X ----------------
-$query_X1 =mysqli_query($koneksi,"SELECT * FROM tb_siswa WHERE kelas='X'");
-$num_X1 = mysqli_num_rows($query_X1);
-$num_siswaX = $num_X1;
-$query_XI1 =mysqli_query($koneksi,"SELECT * FROM tb_siswa WHERE kelas='XI'");
-$num_XI1 = mysqli_num_rows($query_XI1);
-$num_siswaXI = $num_XI1;
-$query_XII1 =mysqli_query($koneksi,"SELECT * FROM tb_siswa WHERE kelas='XII'");
-$num_XII1 = mysqli_num_rows($query_XII1);
-$num_siswaXII = $num_XII1;
-$num_semua_siswa = $num_siswaX + $num_siswaXI + $num_siswaXII;
 
 // ==================================== KELAS 1 ==================================================
-$query =mysqli_query($koneksi,"SELECT * FROM tb_siswa LEFT JOIN tb_jenis_tagihan ON tb_siswa.jurusan=tb_jenis_tagihan.jurusan WHERE tb_siswa.kelas='X'");
-$num1 = mysqli_num_rows($query);
-// var_dump($num1);
-    while ($data = mysqli_fetch_assoc($query)) {
+$query1 =mysqli_query($koneksi,"SELECT * FROM tb_siswa LEFT JOIN tb_jenis_tagihan ON tb_siswa.jurusan=tb_jenis_tagihan.jurusan WHERE tb_siswa.kelas='X'");
+    $num1 = mysqli_num_rows($query1);
+    while ($data = mysqli_fetch_assoc($query1)) {
       $jurusan = $data['jurusan'];
 
     $que =mysqli_query($koneksi,"SELECT jumlah FROM tb_jenis_tagihan WHERE kelas='X' AND jurusan='$jurusan'");
@@ -28,14 +16,20 @@ $num1 = mysqli_num_rows($query);
         while ($data = mysqli_fetch_array($que)) {
           $jumlah_tghn1_2 += $data['jumlah'];
         }
-        $jumlah1 = $jumlah_tghn1_1 + $jumlah_tghn1_2;
+        $jml1 = $jumlah_tghn1_1 + $jumlah_tghn1_2;
     }
 
+$query2 = mysqli_query($koneksi,"SELECT jumlah FROM tb_jenis_tagihan WHERE kelas='SEMUA' AND jurusan='SEMUA'");
+        while ($data = mysqli_fetch_array($query2)) {
+          $jumlah1_1 += $data['jumlah'];
+        }
+$jumlah1 = $jumlah1_1 * $num1 + $jml1;
+
 // ==================================== KELAS 2 ==================================================
-$query =mysqli_query($koneksi,"SELECT * FROM tb_siswa LEFT JOIN tb_jenis_tagihan ON tb_siswa.jurusan=tb_jenis_tagihan.jurusan WHERE tb_siswa.kelas='XI'");
-$num2 = mysqli_num_rows($query);
+$query1 =mysqli_query($koneksi,"SELECT * FROM tb_siswa LEFT JOIN tb_jenis_tagihan ON tb_siswa.jurusan=tb_jenis_tagihan.jurusan WHERE tb_siswa.kelas='XI'");
+$num2 = mysqli_num_rows($query1);
 // var_dump($num2);
-    while ($data = mysqli_fetch_assoc($query)) {
+    while ($data = mysqli_fetch_assoc($query1)) {
       $jurusan = $data['jurusan'];
 
       $que =mysqli_query($koneksi,"SELECT jumlah FROM tb_jenis_tagihan WHERE kelas='XI' AND jurusan='$jurusan'");
@@ -47,14 +41,20 @@ $num2 = mysqli_num_rows($query);
         while ($data = mysqli_fetch_array($que)) {
           $jumlah_tghn2_2 += $data['jumlah'];
         }
-        $jumlah2 = $jumlah_tghn2_1 + $jumlah_tghn2_2;
+        $jml2 = $jumlah_tghn2_1 + $jumlah_tghn2_2;
     }
 
+$query2 = mysqli_query($koneksi,"SELECT jumlah FROM tb_jenis_tagihan WHERE kelas='SEMUA' AND jurusan='SEMUA'");
+        while ($data = mysqli_fetch_array($query2)) {
+          $jumlah2_1 += $data['jumlah'];
+        }
+$jumlah2 = $jumlah2_1 * $num2 + $jml2;
+
 // ==================================== KELAS 3 ==================================================
-$query =mysqli_query($koneksi,"SELECT * FROM tb_siswa LEFT JOIN tb_jenis_tagihan ON tb_siswa.jurusan=tb_jenis_tagihan.jurusan WHERE tb_siswa.kelas='XII'");
-$num3 = mysqli_num_rows($query);
+$query1 =mysqli_query($koneksi,"SELECT * FROM tb_siswa LEFT JOIN tb_jenis_tagihan ON tb_siswa.jurusan=tb_jenis_tagihan.jurusan WHERE tb_siswa.kelas='XII'");
+$num3 = mysqli_num_rows($query1);
 // var_dump($num3);
-    while ($data = mysqli_fetch_assoc($query)) {
+    while ($data = mysqli_fetch_assoc($query1)) {
       $jurusan = $data['jurusan'];
 
       $que=mysqli_query($koneksi,"SELECT jumlah FROM tb_jenis_tagihan WHERE kelas='XII' AND jurusan='$jurusan'");
@@ -66,20 +66,16 @@ $num3 = mysqli_num_rows($query);
         while ($data = mysqli_fetch_array($que)) {
           $jumlah_tghn3_2 += $data['jumlah'];
         }
-        $jumlah3 = $jumlah_tghn3_1 + $jumlah_tghn3_2;
+        $jml3 = $jumlah_tghn3_1 + $jumlah_tghn3_2;
     }
-// ==================================== KELAS SEMUA ==================================================
-$query =mysqli_query($koneksi,"SELECT jumlah FROM tb_jenis_tagihan WHERE kelas='SEMUA' AND jurusan='SEMUA'");
-        while ($data = mysqli_fetch_array($query)) {
-          $jumlah4 += $data['jumlah'];
+
+$query2 = mysqli_query($koneksi,"SELECT jumlah FROM tb_jenis_tagihan WHERE kelas='SEMUA' AND jurusan='SEMUA'");
+        while ($data = mysqli_fetch_array($query2)) {
+          $jumlah3_1 += $data['jumlah'];
         }
-$num_siswa = $num1+$num2+$num3; // jumlah siswa
-$jumlah_semua = $jumlah4*$num_siswa;
-// ==================================== TOTAL TAGIHAN UMUM ==================================================
+$jumlah3 = $jumlah3_1 * $num3 + $jml3;
 
-$total_umum = $jumlah1+$jumlah2+$jumlah3+$jumlah_semua; // Total Tagihan Umum
-
-
+$total_umum = $jumlah1 + $jumlah2 + $jumlah3;
 // ==================================== Tagihan siswa 1 ==================================================
 $query =mysqli_query($koneksi,"SELECT * FROM tb_siswa LEFT JOIN tb_tagihan_siswa ON tb_siswa.id_siswa=tb_tagihan_siswa.id_siswa WHERE tb_siswa.kelas='X'");
     while ($data = mysqli_fetch_array($query)) {

@@ -116,7 +116,7 @@ if (isset($_POST['back'])) {
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead class="bg-dark text-white">
           <tr>
-            <th class="text-center">NO</th>
+            <th class="text-center">idsiswa</th>
             <th class="text-center">NAMA SISWA</th>
             <!-- kelas SEMUA jurusan SEMUA --> 
             <?php
@@ -184,7 +184,7 @@ $query_siswa = "SELECT * FROM tb_siswa WHERE kelas='$kelas_post' AND jurusan='$j
 ?> 
 
            <tr>
-            <td class="text-center"><?=$no++;?></td>
+            <td class="text-center"><?=$id_siswa;?></td>
             <td><?=$nama_siswa;?></td>
 
     <!-- kelas SEMUA jurusan SEMUA -->
